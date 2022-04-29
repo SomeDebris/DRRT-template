@@ -1,3 +1,3 @@
 [submodule "drrt-scripts"]
 	path = drrt-scripts
-	url = https://github.com/SomeDebris/drrt-scripts.git
+	url = git@github.com:SomeDebris/drrt-scripts.git
