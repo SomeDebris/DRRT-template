@@ -1,0 +1,25 @@
+#!/bin/bash
+
+REGEX='({854,|{863,|{838,|{833,|{273,|{927,|{928,|{929,|{930,|{931,|{932,|{933,|{934,|{935,|{936,|{937,|{938,|{939,|{940,|{941,|{942,|{943,|{953,|{954,|{955,|{956,|{320,|{11104,|{12130,|{15010,|{15142,|{15144,|{15146,)'
+
+if [[ -f ".checking.lua.gz" ]]; then
+    rm ".checking.lua.gz"
+fi
+
+if [[ -f ".checking.lua" ]]; then
+    rm ".checking.lua"
+fi
+
+for i in *.lua.gz; do
+    cp "$i" ".checking.lua.gz"
+
+    gunzip ".checking.lua.gz" 
+
+    if [[ $(grep "$REGEX" ".checking.lua") ]]; then
+        echo "Ship '$i' contains ILLEGAL BLOCKS:"
+
+        grep "$REGEX" ".checking.lua" --color=auto
+    fi
+
+    rm ".checking.lua"
+done
