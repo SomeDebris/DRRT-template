@@ -31,16 +31,18 @@ if [[ ! -f "$1" ]]; then
     exit 1
 fi
 
-cp "$1" ".checking.lua.gz"
+for i in "$@"; do
+    cp "$i" ".checking.lua.gz"
 
-gunzip ".checking.lua.gz" 
+    gunzip ".checking.lua.gz" 
 
-if [[ $(grep "$REGEX" ".checking.lua") ]]; then
-    echo "Ship '$1' contains ILLEGAL BLOCKS:"
+    if [[ $(grep "$REGEX" ".checking.lua") ]]; then
+        echo "Ship '$i' contains ILLEGAL BLOCKS:"
 
-    grep "$REGEX" ".checking.lua" --color=auto
-else
-    echo "Ship '$1' is good!"
-fi
+        grep "$REGEX" ".checking.lua" --color=auto
+    else
+        echo "Ship '$i' is good!"
+    fi
 
-rm ".checking.lua"
+    rm ".checking.lua"
+done
