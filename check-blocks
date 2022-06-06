@@ -10,28 +10,19 @@ if [[ -f ".checking.lua" ]]; then
     rm ".checking.lua"
 fi
 
-# DEPRECATED LOOP FOR TESTING ALL FILES IN DIRECTORY
-# for i in *.lua.gz; do
-#     cp "$i" ".checking.lua.gz"
-
-#     gunzip ".checking.lua.gz" 
-
-#     if [[ $(grep "$REGEX" ".checking.lua") ]]; then
-#         echo "Ship '$i' contains ILLEGAL BLOCKS:"
-
-#         grep "$REGEX" ".checking.lua" --color=auto
-#     fi
-
-#     rm ".checking.lua"
-# done
-
-if [[ ! -f "$1" ]]; then
-    echo "File '$1' does not exist!"
-    
-    exit 1
-fi
-
 for i in "$@"; do
+    if [[ ! -f "$i" ]]; then
+        echo "File '$i' does not exist!"
+        
+        continue
+    fi
+
+    if [[ ! $i == *.lua.gz ]]; then
+        echo "File '$i' doesn't have the '*.lua.gz' extension!"
+        
+        continue
+    fi
+
     cp "$i" ".checking.lua.gz"
 
     gunzip ".checking.lua.gz" 
