@@ -1,2 +1,3 @@
 *.lua.gz
 MatchMaker*
+*.lua
